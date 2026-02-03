@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Barbie ❤️</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #1c1c1c, #0f0f0f);
+    color: #eee;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 34px;
+    border-radius: 22px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    text-align: center;
+    backdrop-filter: blur(8px);
+    max-width: 360px;
+    z-index: 2;
+  }
+
+  h1 {
+    color: #f2a1b3;
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  button {
+    padding: 12px 26px;
+    font-size: 17px;
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  #yes {
+    background: #d16c8f;
+    color: #fff;
+  }
+
+  #yes:hover {
+    transform: scale(1.05);
+  }
+
+  #no {
+    background: #555;
+    color: #eee;
+  }
+
+  .heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 16px;
+    opacity: 0.4;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    from {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    to {
+      transform: translateY(-110vh);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1 id="question">Barbie ❤️ will you be my Valentine?</h1>
+  <button id="yes" onclick="yesClicked()">Yes ❤️</button>
+  <button id="no" onclick="noClicked()">No 🙂</button>
+</div>
+
+<!-- Background Music -->
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  let noCount = 0;
+  let yesSize = 17;
+
+  const messages = [
+    "Take your time 🙂",
+    "Think about us ❤️",
+    "That answer feels wrong 😌",
+    "Try again, Barbie",
+    "You already know 💕",
+    "There’s only one right answer 😏"
+  ];
+
+  function noClicked() {
+    noCount++;
+    document.getElementById("question").innerText =
+      messages[noCount % messages.length];
+
+    yesSize += 4;
+    document.getElementById("yes").style.fontSize = yesSize + "px";
+  }
+
+  function yesClicked() {
+    document.body.innerHTML = `
+      <div style="text-align:center;">
+        <h1 style="color:#f2a1b3; font-size:46px;">❤️ YES ❤️</h1>
+        <p style="font-size:22px;">Happy Valentine’s Day, Barbie</p>
+        <p style="font-size:18px; opacity:0.8;">You mean more to me than words</p>
+      </div>
+    `;
+    confetti();
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 9000);
+  }
+
+  setInterval(createHeart, 700);
+
+  function confetti() {
+    for (let i = 0; i < 100; i++) {
+      const c = document.createElement("div");
+      c.innerHTML = "❤️";
+      c.style.position = "absolute";
+      c.style.left = Math.random() * 100 + "vw";
+      c.style.top = Math.random() * 100 + "vh";
+      c.style.fontSize = "20px";
+      c.style.opacity = "0.8";
+      c.style.animation = "floatUp 3s linear";
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 3000);
+    }
+  }
+</script>
+
+</body>
+</html>
